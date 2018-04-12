@@ -77,11 +77,13 @@ export var ScrollWheelZoom = Handler.extend({
 
 		if (!delta) { return; }
 
-		if (map.options.scrollWheelZoom === 'center') {
-			map.setZoom(zoom + delta);
-		} else {
-			map.setZoomAround(this._lastMousePos, zoom + delta);
-		}
+		Util.requestAnimFrame(function () {
+			if (map.options.scrollWheelZoom === 'center') {
+				map.setZoom(zoom + delta);
+			} else {
+				map.setZoomAround(this._lastMousePos, zoom + delta);
+			}
+		}, this);
 	}
 });
 
